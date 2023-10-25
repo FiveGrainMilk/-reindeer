@@ -758,6 +758,7 @@ RETURN this.SizeOfStructure
 }
 }
 
+
 ; Gui
 
 Gui, Add, Text, x15 y20 w120 h20 +border +0x201, 순록이 Beta ; 타이틀 표시
@@ -793,13 +794,8 @@ Btn1: ; 순록이 시작 버튼 동작
 	Gui, Submit, NoHide
 	GuiControl,, A, 순록이 동작중...
 	Sleep, 500
-	Macrostate := true
-	While (Macrostate)
-	{
-		ATT1()
-	}
+	ATT1() ; ATT1() 함수 호출
 }
-return
 
 
 Btn2: ; 순록이 종료 버튼 동작
@@ -807,9 +803,6 @@ Btn2: ; 순록이 종료 버튼 동작
 	GuiControl,, A, 매크로 동작종료
 	Gui, Submit, NoHide
 	Macrostate := false
-	wall_remove_disable()
-	floor_remove_disable()
-	char_remove_disable()
 	ExitApp ; 스크립트 종료
 }
 return
@@ -883,24 +876,29 @@ char_remove_enable(){
 		WriteMemory(0x0045D291,  0xC2, "char")
 		WriteMemory(0x0045D292,  0x00, "char")
 		WriteMemory(0x0045D293,  0x00, "char")
-	}
+}
 
 ;step3.
 
 ;Attack
 
-ATT1(){
-	Gui, Submit, nohide
-	Guicontrol,, Statusline, 순록이 셋팅중..
-	WindowTitle := Player1Title
-	if(isFirstTimeRunThisCode := 1){
-		wall_remove_enable()
-		floor_remove_enable()
-		char_remove_enable()
-		isFirstTimeRunThisCode := 0
-		sleep, 100
+ATT1()
+{
+	Macrostate := true
+	While (Macrostate)
+	{
+        	Gui, Submit, nohide
+		Guicontrol,, Statusline, 순록이 셋팅중..
+		WindowTitle := Player1Title
+		if(isFirstTimeRunThisCode := 1){
+			wall_remove_enable()
+			floor_remove_enable()
+			char_remove_enable()
+			isFirstTimeRunThisCode := 0
+			sleep, 100
+		}
+		return
 	}
-	return
 }
 
 마우스클릭(X,Y) { ; 마우스 값 
