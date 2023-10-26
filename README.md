@@ -1,5 +1,5 @@
 # -reindeer
 hunt down all the reindeer of Elancia.
 
-;일랜시아 순록 사냥 및 여러 매크로 제작 깃허브
-;개초보임
+; 개초보의 학습일기
+; 실력 늘면 아이디어는 많음.
